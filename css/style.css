@@ -1,0 +1,170 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+img {
+    max-width: 100%;
+    margin-bottom: 20px;
+    -webkit-border-radius: 25%;
+    -moz-border-radius: 25%;
+    border-radius: 25%;
+    clip-path: circle(40% at center);
+}
+
+a {
+    text-decoration: none;
+    color: deepskyblue;
+}
+
+a:hover {
+    color: dodgerblue;
+}
+
+a:visited {
+    color: lightblue;
+}
+
+h1, h2 {
+    font-family: 'Cabin', sans-serif;
+}
+
+header {
+    text-align: center;
+    background-position: center;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.1)), url("../img/cover.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 700px;
+    padding: 50px;
+    text-shadow: 2px 2px black;
+    margin-bottom: 40px;
+}
+
+header h1 {
+    font-weight: bold;
+    text-align: center;
+    font-size: 80px;
+    color: white;
+}
+
+header span {
+    font-size: 30px;
+    text-align: center;
+    color: white;
+}
+
+p {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.content {
+    text-align: center;
+    margin: auto;
+    width: 50%;
+}
+
+#activities, #accommodation {
+    width: 100%;
+}
+
+#accommodation {
+    order: 1;
+}
+
+#activities {
+    order: 1;
+}
+
+#secondary-content:after {
+    content: "";
+    display: table;
+    clear:both;
+}
+
+#secondary-content.section {
+    display: flex;
+    flex-direction: row;
+}
+
+#pricing table {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+}
+
+table tr:nth-child(odd) {
+    background-color: lightgray;
+    border: 1px solid black;
+}
+
+table tr:nth-child(even) {
+    background-color: rgb(245,245,245);
+    border: 1px solid black;
+}
+
+table td {
+    padding: 10px;
+}
+
+.section {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+#contact input[type="text"] {
+    width: 40%;
+    padding: 12px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    font-size: 20px;
+    border: 1px solid black;
+}
+
+#contact input[type="submit"] {
+    padding: 12px;
+    font-size: 20px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background-color: lightblue;
+    border: none;
+}
+
+footer {
+    margin-top: 100px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.callout {
+    font-size: 20px;
+    border-bottom: 2px solid;
+}
+
+@media (max-width: 768px) {
+    header {
+        height: 400px;
+    }
+
+    header h1 {
+        font-size: 60px;
+    }
+
+    .content {
+        width: 80%;
+    }
+
+    #activities, #accommodation {
+        float: none;
+        width: 100%;
+    }
+
+    #pricing table {
+        width: 80%;
+    }
+}
