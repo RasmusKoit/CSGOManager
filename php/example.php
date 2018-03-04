@@ -11,7 +11,7 @@ use xPaw\SourceQuery\SourceQuery;
 
 
 // Edit this ->
-define( 'SQ_SERVER_ADDR', '172.20.20.27' );
+define( 'SQ_SERVER_ADDR', 'est.ialbhost.eu' );
 define( 'SQ_SERVER_PORT', 27015 );
 define( 'SQ_TIMEOUT',     1 );
 define( 'SQ_ENGINE',      SourceQuery::SOURCE );
@@ -62,31 +62,26 @@ finally
 <?php
 
 
-print $Info['HostName'];
+/*print $Info['HostName'];
 print SQ_SERVER_ADDR;
 print $Info['GamePort'];
-print $Info['Players'];
+print $Info['Players'];*/
 ?>
 <form>
     <table class="form-table">
         <tbody>
         <tr>
             <td>Server name</td>
+            <td>IP</td>
+            <td>Port</td>
+        </tr>
+        <tr>
             <td><?php print $Info['HostName']?></td>
+            <td><?php print SQ_SERVER_ADDR?></td>
+            <td><?php print $Info['GamePort']?></td>
+
         </tr>
         <tr>
-            <td>Perekonnanimi:</td>
-            <td><input name="lastName" value=""></td>
-        </tr>
-        <tr>
-            <td>Telefonid:</td>
-            <td><input name="phone1" value=""></td>
-        </tr>
-        <tr>
-            <td colspan="2"><br>
-                <input name="submit-button" type="submit" value="Salvesta">
-            </td>
-        </tr>
         </tbody>
     </table>
 
