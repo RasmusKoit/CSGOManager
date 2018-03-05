@@ -8,7 +8,7 @@
 
 /* Attempt MySQL server connection. Assuming you are running MySQL
 server with default setting (user 'root' with no password) */
-$link = mysqli_connect("localhost", "root", "", "servers");
+$link = mysqli_connect("localhost", "www-data", "salakala", "servers");
 
 // Check connection
 if($link === false){

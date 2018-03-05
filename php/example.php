@@ -6,43 +6,53 @@
  * Time: 19:50
  */
 
-require __DIR__ . './SourceQuery/bootstrap.php';
+require __DIR__ . '/SourceQuery/bootstrap.php';
 use xPaw\SourceQuery\SourceQuery;
 
 
 // Edit this ->
-define( 'SQ_SERVER_ADDR', 'est.ialbhost.eu' );
-define( 'SQ_SERVER_PORT', 27015 );
 define( 'SQ_TIMEOUT',     1 );
 define( 'SQ_ENGINE',      SourceQuery::SOURCE );
 // Edit this <-
 
 $Timer = MicroTime( true );
 
-$Query = new SourceQuery( );
-
-$Info    = Array( );
-$Players = Array( );
-
-try
-{
-    $Query->Connect( SQ_SERVER_ADDR, SQ_SERVER_PORT, SQ_TIMEOUT, SQ_ENGINE );
-    //$Query->SetUseOldGetChallengeMethod( true ); // Use this when players/rules retrieval fails on games like Starbound
-    $Info    = $Query->GetInfo( );
-    $Players = $Query->GetPlayers( );
-
-
-
-
+function getServerInfo($server_ip, $server_port) {
+    $Query = new SourceQuery( );
+    try
+    {
+        $Query->Connect( $server_ip, $server_port, SQ_TIMEOUT, SQ_ENGINE );
+        //$Query->SetUseOldGetChallengeMethod( true ); // Use this when players/rules retrieval fails on games like Starbound
+        return $Query->GetInfo( );
+    }
+    catch( Exception $e )
+    {
+        $Exception = $e;
+    }
+    finally
+    {
+        $Query->Disconnect( );
+    }
 }
-catch( Exception $e )
-{
-    $Exception = $e;
+
+function getServerPlayers($server_ip, $server_port) {
+    $Query = new SourceQuery( );
+    try
+    {
+        $Query->Connect( $server_ip, $server_port, SQ_TIMEOUT, SQ_ENGINE );
+        //$Query->SetUseOldGetChallengeMethod( true ); // Use this when players/rules retrieval fails on games like Starbound
+        return $Query->GetPlayers( );
+    }
+    catch( Exception $e )
+    {
+        $Exception = $e;
+    }
+    finally
+    {
+        $Query->Disconnect( );
+    }
 }
-finally
-{
-    $Query->Disconnect( );
-}
+
 ?>
 
 <!DOCTYPE html>
@@ -56,7 +66,6 @@ finally
 
 </head>
 <body>
-<pre><?php  echo $_GET["id"]?></pre>
 <header>
     <h1>CS GO Manager!</h1>
     <span>Counter-Strike Global Offensive Server Manager</span>
@@ -65,10 +74,43 @@ finally
 
 
 /*print $Info['HostName'];
+print_r($Info);
 print SQ_SERVER_ADDR;
 print $Info['GamePort'];
 print $Info['Players'];*/
+
 ?>
+<?php
+/* Attempt MySQL server connection. Assuming you are running MySQL
+server with default setting (user 'root' with no password) */
+$link = mysqli_connect("localhost", "www-data", "salakala", "servers");
+
+// Check connection
+if($link === false){
+    die("ERROR: Could not connect. " . mysqli_connect_error());
+}
+
+// Attempt select query execution
+$sql = "SELECT * FROM servers WHERE id=".$_GET["id"].";";
+if($result = mysqli_query($link, $sql)){
+    if(mysqli_num_rows($result) > 0){
+        while($row = mysqli_fetch_array($result)){
+            $Info = getServerInfo($row['server_ip'], $row['server_port']);
+            $ip = $row['server_ip'];
+        }
+        // Free result set
+        mysqli_free_result($result);
+    } else{
+        echo "No records matching your query were found.";
+    }
+} else{
+    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+}
+
+// Close connection
+mysqli_close($link);
+?>
+
 <form>
     <table class="form-table">
         <tbody>
@@ -79,7 +121,7 @@ print $Info['Players'];*/
         </tr>
         <tr>
             <td><?php print $Info['HostName']?></td>
-            <td><?php print SQ_SERVER_ADDR?></td>
+            <td><?php print $ip?></td>
             <td><?php print $Info['GamePort']?></td>
 
         </tr>

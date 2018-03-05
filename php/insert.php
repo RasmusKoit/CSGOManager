@@ -8,7 +8,7 @@
 
 /* Attempt MySQL server connection. Assuming you are running MySQL
 server with default setting (user 'root' with no password) */
-$link = mysqli_connect("localhost", "root", "", "servers");
+$link = mysqli_connect("localhost", "www-data", "salakala", "servers");
 
 // Check connection
 if($link === false){
@@ -18,6 +18,8 @@ if($link === false){
 // Escape user inputs for security
 $server_ip = mysqli_real_escape_string($link, $_REQUEST['server_ip']);
 $server_port = mysqli_real_escape_string($link, $_REQUEST['server_port']);
+
+header('Location: serverList.php');
 
 // attempt insert query execution
 $sql = "INSERT INTO servers (server_ip, server_port) VALUES ('$server_ip', '$server_port')";
@@ -29,4 +31,5 @@ if(mysqli_query($link, $sql)){
 
 // close connection
 mysqli_close($link);
+die();
 ?>
