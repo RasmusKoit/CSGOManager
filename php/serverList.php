@@ -18,31 +18,30 @@ if($link === false){
 // Attempt select query execution
 $sql = "SELECT * FROM servers";
 if($result = mysqli_query($link, $sql)){
-    if(mysqli_num_rows($result) > 0){
-        echo "<table>";
-        echo "<tr>";
-        echo "<th>ID</th>";
-        echo "<th>Server IP</th>";
-        echo "<th>Port</th>";
-        echo "<th>Manage</th>";
-        echo "</tr>";
-        while($row = mysqli_fetch_array($result)){
-            echo "<tr>";
-            echo "<td>" . $row['id'] . "</td>";
-            echo "<td>" . $row['server_ip'] . "</td>";
-            echo "<td>" . $row['server_port'] . "</td>";
-            echo "<td>";
-            echo "<form action=\"example.php\" method=\"get\">";
-            echo "<input type=\"submit\" value=\"manage me now!\">";
-            echo "</form>" . "</td>";
+    if(mysqli_num_rows($result) > 0){?>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Server IP</th>
+                    <th>Server Port</th>
+                    <th>Manage</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php while($row = mysqli_fetch_array($result)){?>
+                <tr>
+                    <td><?= $row['id'] ?></td>
+                    <td><?= $row['server_ip'] ?></td>
+                    <td><?= $row['server_port'] ?></td>
+                    <td><a href="example.php?id=<?=$row['id']?>">Manage</a></td>
+                </tr>
+            <?php } ?>
+            </tbody>
 
-
-
-
-            echo "</tr>";
-        }
-        echo "</table>";
-        // Free result set
+        </table>
+<?php
+    // Free result set
         mysqli_free_result($result);
     } else{
         echo "No records matching your query were found.";

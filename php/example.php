@@ -6,7 +6,7 @@
  * Time: 19:50
  */
 
-require __DIR__ . '../SourceQuery/bootstrap.php';
+require __DIR__ . './SourceQuery/bootstrap.php';
 use xPaw\SourceQuery\SourceQuery;
 
 
@@ -53,8 +53,10 @@ finally
     <link rel="stylesheet" href="../css/style.css"/>
     <link href="https://fonts.googleapis.com/css?family=Cabin:600" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville" rel="stylesheet">
+
 </head>
 <body>
+<pre><?php  echo $_GET["id"]?></pre>
 <header>
     <h1>CS GO Manager!</h1>
     <span>Counter-Strike Global Offensive Server Manager</span>
