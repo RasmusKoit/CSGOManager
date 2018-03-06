@@ -5,6 +5,7 @@
  * Date: 3/6/18
  * Time: 2:18 PM
  */
+use xPaw\SourceQuery\SourceQuery;
 
 function getServerInfo($server_ip, $server_port) {
     $Query = new SourceQuery( );

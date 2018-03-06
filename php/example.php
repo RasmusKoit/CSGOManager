@@ -8,8 +8,8 @@
 
 require __DIR__ . '/SourceQuery/bootstrap.php';
 use xPaw\SourceQuery\SourceQuery;
-
-
+include 'connectMysql.php';
+include_once 'functions.php';
 // Edit this ->
 define( 'SQ_TIMEOUT',     1 );
 define( 'SQ_ENGINE',      SourceQuery::SOURCE );
@@ -17,41 +17,7 @@ define( 'SQ_ENGINE',      SourceQuery::SOURCE );
 
 $Timer = MicroTime( true );
 
-function getServerInfo($server_ip, $server_port) {
-    $Query = new SourceQuery( );
-    try
-    {
-        $Query->Connect( $server_ip, $server_port, SQ_TIMEOUT, SQ_ENGINE );
-        //$Query->SetUseOldGetChallengeMethod( true ); // Use this when players/rules retrieval fails on games like Starbound
-        return $Query->GetInfo( );
-    }
-    catch( Exception $e )
-    {
-        $Exception = $e;
-    }
-    finally
-    {
-        $Query->Disconnect( );
-    }
-}
 
-function getServerPlayers($server_ip, $server_port) {
-    $Query = new SourceQuery( );
-    try
-    {
-        $Query->Connect( $server_ip, $server_port, SQ_TIMEOUT, SQ_ENGINE );
-        //$Query->SetUseOldGetChallengeMethod( true ); // Use this when players/rules retrieval fails on games like Starbound
-        return $Query->GetPlayers( );
-    }
-    catch( Exception $e )
-    {
-        $Exception = $e;
-    }
-    finally
-    {
-        $Query->Disconnect( );
-    }
-}
 
 ?>
 
@@ -85,6 +51,7 @@ print $Info['Players'];*/
 server with default setting (user 'root' with no password) */
 
 include 'connectMysql.php';
+include_once 'functions.php';
 // Check connection
 if($link === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
