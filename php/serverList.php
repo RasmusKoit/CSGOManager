@@ -5,8 +5,17 @@
  * Date: 05.03.2018
  * Time: 10:58
  */
-include 'database.php';
 
+include_once 'database.php';
+include_once 'header.php';
+?>
+
+<header>
+    <h1>CS GO Manager!</h1>
+    <span>CS GO Server list</span>
+</header>
+
+<?php
 // Attempt select query execution
 $sql = "SELECT * FROM servers";
 $servers = DB::run($sql);
@@ -32,3 +41,6 @@ if($servers->rowCount()){?>
             </tbody>
         </table>
 <?php } ?>
+<p>
+<button type="button" onclick="window.location.href = 'addServer.php'">Add server</button>
+<?php include_once 'footer.php' ?>
