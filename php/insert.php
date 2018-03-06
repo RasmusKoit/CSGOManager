@@ -19,8 +19,6 @@ if($link === false){
 $server_ip = mysqli_real_escape_string($link, $_REQUEST['server_ip']);
 $server_port = mysqli_real_escape_string($link, $_REQUEST['server_port']);
 
-header('Location: serverList.php');
-
 // attempt insert query execution
 $sql = "INSERT INTO servers (server_ip, server_port) VALUES ('$server_ip', '$server_port')";
 if(mysqli_query($link, $sql)){
@@ -31,5 +29,6 @@ if(mysqli_query($link, $sql)){
 
 // close connection
 mysqli_close($link);
+header('Location: serverList.php');
 die();
 ?>
