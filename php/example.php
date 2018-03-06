@@ -16,28 +16,14 @@ define( 'SQ_TIMEOUT',     1 );
 define( 'SQ_ENGINE',      SourceQuery::SOURCE );
 // Edit this <-
 
-$Timer = MicroTime( true );
 
+include_once 'header.php';
 ?>
 
-<!DOCTYPE html>
-<html lang="et">
-<head>
-    <meta charset="utf-8">
-    <title>CSGO Manager</title>
-    <link rel="stylesheet" href="../css/style.css"/>
-    <link href="https://fonts.googleapis.com/css?family=Cabin:600" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville" rel="stylesheet">
-
-</head>
-<body>
 <header>
     <h1>CS GO Manager!</h1>
     <span>Counter-Strike Global Offensive Server Manager</span>
 </header>
-<?php
-
-?>
 <?php
 
 include_once 'functions.php';
@@ -69,11 +55,10 @@ if($servers->rowCount()){
             <td><?php print $info['HostName']   ?: '-'?></td>
             <td><?php print $info['server_ip']  ?: '-'?></td>
             <td><?php print $info['GamePort']   ?: '-'?></td>
-
         </tr>
         <tr>
         </tbody>
     </table>
+</form>
 
-</body>
-</html>
+<?php include_once 'footer.php' ?>
