@@ -8,16 +8,15 @@
 
 require __DIR__ . '/SourceQuery/bootstrap.php';
 use xPaw\SourceQuery\SourceQuery;
-include 'connectMysql.php';
 include_once 'functions.php';
+include_once 'database.php';
+
 // Edit this ->
 define( 'SQ_TIMEOUT',     1 );
 define( 'SQ_ENGINE',      SourceQuery::SOURCE );
 // Edit this <-
 
 $Timer = MicroTime( true );
-
-
 
 ?>
 
@@ -38,44 +37,24 @@ $Timer = MicroTime( true );
 </header>
 <?php
 
-
-/*print $Info['HostName'];
-print_r($Info);
-print SQ_SERVER_ADDR;
-print $Info['GamePort'];
-print $Info['Players'];*/
-
 ?>
 <?php
-/* Attempt MySQL server connection. Assuming you are running MySQL
-server with default setting (user 'root' with no password) */
 
-include 'connectMysql.php';
 include_once 'functions.php';
 // Check connection
-if($link === false){
-    die("ERROR: Could not connect. " . mysqli_connect_error());
-}
+
+$sql = "SELECT * FROM servers WHERE id=:id";
+$servers = DB::run($sql, [':id' => $_GET['id']]);
 
 // Attempt select query execution
-$sql = "SELECT * FROM servers WHERE id=".$_GET["id"].";";
-if($result = mysqli_query($link, $sql)){
-    if(mysqli_num_rows($result) > 0){
-        while($row = mysqli_fetch_array($result)){
-            $Info = getServerInfo($row['server_ip'], $row['server_port']);
-            $ip = $row['server_ip'];
-        }
-        // Free result set
-        mysqli_free_result($result);
-    } else{
-        echo "No records matching your query were found.";
-    }
-} else{
-    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+
+$info = [];
+if($servers->rowCount()){
+    $serverData = $servers->fetch(PDO::FETCH_ASSOC);
+    $info = getServerInfo($serverData['server_ip'], $serverData['server_port']);
+    $info['server_ip'] = $serverData['server_ip'];
 }
 
-// Close connection
-mysqli_close($link);
 ?>
 
 <form>
@@ -87,9 +66,9 @@ mysqli_close($link);
             <td>Port</td>
         </tr>
         <tr>
-            <td><?php print $Info['HostName']?></td>
-            <td><?php print $ip?></td>
-            <td><?php print $Info['GamePort']?></td>
+            <td><?php print $info['HostName']   ?: '-'?></td>
+            <td><?php print $info['server_ip']  ?: '-'?></td>
+            <td><?php print $info['GamePort']   ?: '-'?></td>
 
         </tr>
         <tr>
