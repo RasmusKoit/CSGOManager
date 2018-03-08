@@ -37,6 +37,7 @@ $servers = DB::run($sql, [':id' => $_GET['id']]);
 $info = [];
 if($servers->rowCount()){
     $serverData = $servers->fetch(PDO::FETCH_ASSOC);
+    $Players = getServerPlayers($serverData['server_ip'], $serverData['server_port']);
     $info = getServerInfo($serverData['server_ip'], $serverData['server_port']);
     $info['server_ip'] = $serverData['server_ip'];
 }
@@ -60,5 +61,32 @@ if($servers->rowCount()){
         </tbody>
     </table>
 </form>
+
+    <div class="col-sm-6">
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Player <span class="label label-info"><?php echo count( $Players ); ?></span></th>
+                <th class="frags-column">Frags</th>
+                <th class="frags-column">Time</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php if( !empty( $Players ) ): ?>
+                <?php foreach( $Players as $Player ): ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars( $Player[ 'Name' ] ); ?></td>
+                        <td><?php echo $Player[ 'Frags' ]; ?></td>
+                        <td><?php echo $Player[ 'TimeF' ]; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="3">No players received</td>
+                </tr>
+            <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
 
 <?php include_once 'footer.php' ?>
