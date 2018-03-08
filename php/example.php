@@ -43,50 +43,59 @@ if($servers->rowCount()){
 }
 
 ?>
-
-<form>
-    <table class="form-table">
-        <tbody>
-        <tr>
-            <td>Server name</td>
-            <td>IP</td>
-            <td>Port</td>
-        </tr>
-        <tr>
-            <td><?php print $info['HostName']   ?: '-'?></td>
-            <td><?php print $info['server_ip']  ?: '-'?></td>
-            <td><?php print $info['GamePort']   ?: '-'?></td>
-        </tr>
-        <tr>
-        </tbody>
-    </table>
-</form>
-
-    <div class="col-sm-6">
-        <table class="table table-bordered table-striped">
-            <thead>
-            <tr>
-                <th>Player <span class="label label-info"><?php echo count( $Players ); ?></span></th>
-                <th class="frags-column">Frags</th>
-                <th class="frags-column">Time</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php if( !empty( $Players ) ): ?>
-                <?php foreach( $Players as $Player ): ?>
-                    <tr>
-                        <td><?php echo htmlspecialchars( $Player[ 'Name' ] ); ?></td>
-                        <td><?php echo $Player[ 'Frags' ]; ?></td>
-                        <td><?php echo $Player[ 'TimeF' ]; ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <tr>
-                    <td colspan="3">No players received</td>
-                </tr>
-            <?php endif; ?>
-            </tbody>
-        </table>
+<div class="container">
+    <div id="serverInfo" class="serverContent">
+        <div class="row">
+            <div class="col-sm-6">
+                <form>
+                    <table class="form-table">
+                        <tbody>
+                        <tr>
+                            <td>Server name</td>
+                            <td>IP</td>
+                            <td>Port</td>
+                        </tr>
+                        <tr>
+                            <td><?php print $info['HostName']   ?: '-'?></td>
+                            <td><?php print $info['server_ip']  ?: '-'?></td>
+                            <td><?php print $info['GamePort']   ?: '-'?></td>
+                        </tr>
+                        <tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
     </div>
-
+    <div id="serverPlayers" class="serverContent">
+        <div class="row">
+            <div class="col-sm-6">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>Player <span class="label label-info"><?php echo count( $Players ); ?></span></th>
+                        <th class="frags-column">Frags</th>
+                        <th class="frags-column">Time</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php if( !empty( $Players ) ): ?>
+                        <?php foreach( $Players as $Player ): ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars( $Player[ 'Name' ] ); ?></td>
+                                <td><?php echo $Player[ 'Frags' ]; ?></td>
+                                <td><?php echo $Player[ 'TimeF' ]; ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="3">No players received</td>
+                        </tr>
+                    <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 <?php include_once 'footer.php' ?>
